@@ -1,9 +1,8 @@
 
 import streamlit as st
-import openai
+from openai import OpenAI
 
 st.set_page_config(page_title="وكيل ترويج المدونة", layout="centered")
-
 st.title("🚀 وكيل ترويج ذكي لمدونتك")
 st.markdown("اكتب معلومات التدوينة وسننشئ لك منشورًا ترويجيًا احترافيًا تلقائيًا باستخدام الذكاء الاصطناعي.")
 
@@ -12,8 +11,8 @@ title = st.text_input("📝 عنوان التدوينة")
 url = st.text_input("🔗 رابط التدوينة")
 category = st.text_input("📁 الفئة (مثلاً: وظائف، دورات، تطوير ذات...)")
 
-# مفتاح OpenAI - يتم جلبه من secrets
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# إنشاء عميل OpenAI
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 if st.button("✨ أنشئ الترويج تلقائيًا"):
     if not title or not url or not category:
@@ -32,10 +31,10 @@ if st.button("✨ أنشئ الترويج تلقائيًا"):
 4. Meta Description للسيو
 5. كلمات مفتاحية (SEO)
 
-اكتب بالعربية الفصحى، بنبرة مشوقة ومحترفة، موجهة لجمهور سعودي.
+اكتب بالعربية الفصحى بنبرة مشوقة ومحترفة موجهة لجمهور سعودي.
 """
 
-            response = openai.chat.completions.create(
+            response = client.chat.completions.create(
                 model="gpt-4",
                 messages=[
                     {"role": "system", "content": "أنت مساعد ذكي في التسويق."},
