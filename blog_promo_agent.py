@@ -12,7 +12,7 @@ title = st.text_input("📝 عنوان التدوينة")
 url = st.text_input("🔗 رابط التدوينة")
 category = st.text_input("📁 الفئة (مثلاً: وظائف، دورات، تطوير ذات...)")
 
-# مفتاح OpenAI - سيتم إدخاله من Streamlit secrets
+# مفتاح OpenAI - يتم جلبه من secrets
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 if st.button("✨ أنشئ الترويج تلقائيًا"):
@@ -35,7 +35,7 @@ if st.button("✨ أنشئ الترويج تلقائيًا"):
 اكتب بالعربية الفصحى، بنبرة مشوقة ومحترفة، موجهة لجمهور سعودي.
 """
 
-            response = openai.ChatCompletion.create(
+            response = openai.chat.completions.create(
                 model="gpt-4",
                 messages=[
                     {"role": "system", "content": "أنت مساعد ذكي في التسويق."},
